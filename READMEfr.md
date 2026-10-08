@@ -1,6 +1,6 @@
 # Winhance Portable
 
-🇫🇷 Français · 🇬🇧 [English](README.en.md)
+🇫🇷 [Français](READMEfr.md)· 🇬🇧 [English](README.md)
 
 Une page web unique, pensée pour le téléphone, qui fabrique un fichier **`autounattend.xml`** à partir du catalogue de réglages de [Winhance](https://github.com/memstechtips/Winhance). Tout se règle au pouce, en prenant son temps, sans PC et sans rien installer.
 
