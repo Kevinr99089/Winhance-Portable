@@ -6,6 +6,8 @@
 
 [🇬🇧 English](README.md) · [🇫🇷 Français](READMEfr.md)
 
+🌐 **[Open Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/)**
+
 </div>
 
 ---
@@ -22,14 +24,14 @@ Winhance is a great tool, but it runs on Windows. Winhance Portable lets you pre
 
 - **Any device**: Android, iOS, tablet, Linux, macOS or Windows. If it has a modern browser, it works.
 - **Mobile-first interface**: large touch targets, bottom dock navigation, safe-area support.
-- **No installation, no server**: one `.html` file that works offline.
+- **No installation, no backend**: it is a single static `.html` page hosted on GitHub Pages, so you can use it straight from your browser. You can also save the file and use it offline.
 - **Private**: your choices stay in your browser's local storage and are never sent anywhere.
 
 ## Features
 
 - **700+ options** spread over 12 tabs, with instant search across all of them.
 - **Windows apps & features**: remove built-in apps, Windows capabilities and optional features.
-- **External software**: install apps through `winget` (or the Store, Chocolatey or a direct download for a few of them).
+- **External software**: install apps through `winget` (or the Store, Chocolatey or a direct download for a few of them), including **additional third-party software that is not in Winhance**, such as Bitwarden, NordPass, qBittorrent, Signal, Docker Desktop, CPU-Z, GPU-Z, HWMonitor, OCCT, CrystalDiskMark, MSI Afterburner, balenaEtcher, TranslucentTB, Plex, Logitech G HUB, SteelSeries GG and Corsair iCUE.
 - **Optimizations**: Privacy & Security (including Windows, Edge and Office AI features), Power (plugged-in and on-battery values), Gaming & Performance, Updates, Notifications and Sound.
 - **Customization**: Windows theme, Taskbar, Start menu and File Explorer.
 - **One-tap presets** for the current tab or for all tabs:
@@ -42,7 +44,7 @@ Winhance is a great tool, but it runs on Windows. Winhance Portable lets you pre
 
 ## How to use it
 
-1. Open [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/) in your browser.
+1. Open [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/) in your browser (or open a saved copy of the HTML file).
 2. Browse the groups (**Software & Apps**, **Optimizations**, **Customization**) and their tabs, or use the search bar.
 3. Set your choices:
    - **Windows apps**: checked = removed.

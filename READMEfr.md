@@ -4,7 +4,9 @@
 
 **Créez un `autounattend.xml` pour Windows depuis n'importe quel appareil, directement dans votre navigateur.**
 
-[🇬🇧 English](README.md) · [🇫🇷 Français](READMEfr.md)
+[🇬🇧 English](README.md) · [🇫🇷 Français](REAMEfr.md)
+
+🌐 **[Ouvrir Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/)**
 
 </div>
 
@@ -22,14 +24,14 @@ Winhance est un excellent outil, mais il fonctionne sous Windows. Winhance Porta
 
 - **Tous les appareils** : Android, iOS, tablette, Linux, macOS ou Windows. Un navigateur récent suffit.
 - **Interface pensée pour le mobile** : grandes zones tactiles, navigation par dock en bas d'écran, prise en charge des zones sûres.
-- **Aucune installation, aucun serveur** : un seul fichier `.html` qui fonctionne hors ligne.
+- **Aucune installation, aucun backend** : c'est une page `.html` statique unique, hébergée sur GitHub Pages, utilisable directement depuis votre navigateur. Vous pouvez aussi enregistrer le fichier et l'utiliser hors ligne.
 - **Confidentialité** : vos choix restent dans le stockage local de votre navigateur et ne sont jamais envoyés ailleurs.
 
 ## Fonctionnalités
 
 - **Plus de 700 options** réparties sur 12 onglets, avec une recherche instantanée sur l'ensemble.
 - **Applications et fonctionnalités Windows** : retrait des applications intégrées, des capacités Windows et des fonctionnalités facultatives.
-- **Logiciels externes** : installation via `winget` (ou le Store, Chocolatey ou un téléchargement direct pour quelques-uns).
+- **Logiciels externes** : installation via `winget` (ou le Store, Chocolatey ou un téléchargement direct pour quelques-uns), avec en plus des **logiciels tiers absents de Winhance**, comme Bitwarden, NordPass, qBittorrent, Signal, Docker Desktop, CPU-Z, GPU-Z, HWMonitor, OCCT, CrystalDiskMark, MSI Afterburner, balenaEtcher, TranslucentTB, Plex, Logitech G HUB, SteelSeries GG et Corsair iCUE.
 - **Optimisations** : Confidentialité & Sécurité (dont les fonctions d'IA de Windows, Edge et Office), Alimentation (valeurs sur secteur et sur batterie), Jeux et Performances, Mise à jour, Notifications et Son.
 - **Personnalisations** : thème Windows, barre des tâches, menu Démarrer et Explorateur.
 - **Préréglages en un geste** pour l'onglet courant ou pour tous les onglets :
@@ -42,7 +44,7 @@ Winhance est un excellent outil, mais il fonctionne sous Windows. Winhance Porta
 
 ## Utilisation
 
-1. Ouvrez [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/)` dans votre navigateur.
+1. Ouvrez [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/) dans votre navigateur (ou ouvrez une copie enregistrée du fichier HTML).
 2. Parcourez les groupes (**Logiciels & Apps**, **Optimisations**, **Personnalisations**) et leurs onglets, ou utilisez la barre de recherche.
 3. Faites vos choix :
    - **Apps Windows** : case cochée = retirée.
