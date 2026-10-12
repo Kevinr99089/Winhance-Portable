@@ -4,7 +4,7 @@
 
 **Build a Windows `autounattend.xml` from any device, right in your browser.**
 
-[馃嚞馃嚙 English](README.md) 路 [馃嚝馃嚪 Fran莽ais](README.fr.md)
+[🇬🇧 English](README.md) · [🇫🇷 Français](READMEfr.md)
 
 </div>
 
@@ -42,7 +42,7 @@ Winhance is a great tool, but it runs on Windows. Winhance Portable lets you pre
 
 ## How to use it
 
-1. Open [Winhance Portable](/docs/index.html) in your browser.
+1. Open [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/) in your browser.
 2. Browse the groups (**Software & Apps**, **Optimizations**, **Customization**) and their tabs, or use the search bar.
 3. Set your choices:
    - **Windows apps**: checked = removed.
@@ -58,9 +58,9 @@ Winhance is a great tool, but it runs on Windows. Winhance Portable lets you pre
 
 | Group | Tabs |
 | --- | --- |
-| Software & Apps | Windows apps & features 路 External software |
-| Optimizations | Privacy & Security 路 Power 路 Gaming & Performance 路 Updates 路 Notifications 路 Sound |
-| Customization | Windows theme 路 Taskbar 路 Start menu 路 File Explorer |
+| Software & Apps | Windows apps & features · External software |
+| Optimizations | Privacy & Security · Power · Gaming & Performance · Updates · Notifications · Sound |
+| Customization | Windows theme · Taskbar · Start menu · File Explorer |
 
 ## Good to know
 

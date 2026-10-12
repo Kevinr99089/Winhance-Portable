@@ -42,7 +42,7 @@ Winhance est un excellent outil, mais il fonctionne sous Windows. Winhance Porta
 
 ## Utilisation
 
-1. Ouvrez [Winhance Portable](/docs/index.html)` dans votre navigateur.
+1. Ouvrez [Winhance Portable](https://kevinr99089.github.io/Winhance-Portable/)` dans votre navigateur.
 2. Parcourez les groupes (**Logiciels & Apps**, **Optimisations**, **Personnalisations**) et leurs onglets, ou utilisez la barre de recherche.
 3. Faites vos choix :
    - **Apps Windows** : case cochée = retirée.
