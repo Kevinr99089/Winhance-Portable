@@ -1,120 +1,80 @@
+<div align="center">
+
 # Winhance Portable
 
-🇫🇷 [Français](READMEfr.md)· 🇬🇧 [English](README.md)
+**Créez un `autounattend.xml` pour Windows depuis n'importe quel appareil, directement dans votre navigateur.**
 
-Une page web unique, pensée pour le téléphone, qui fabrique un fichier **`autounattend.xml`** à partir du catalogue de réglages de [Winhance](https://github.com/memstechtips/Winhance). Tout se règle au pouce, en prenant son temps, sans PC et sans rien installer.
+[🇬🇧 English](README.md) · [🇫🇷 Français](READMEfr.md)
 
-**Page en ligne :** <https://kevinr99089.github.io/Winhance-Portable/>
-
-> Projet personnel et non officiel. Il n'est pas affilié à Winhance ni à son auteur. Voir [Licence et crédits](#licence-et-crédits).
+</div>
 
 ---
 
-## Ce que fait la page
+## Qu'est-ce que Winhance Portable ?
 
-La page **n'exécute rien**. Elle assemble un fichier XML. Les actions ont lieu plus tard, au premier démarrage de Windows, quand le fichier sert d'`autounattend.xml` à l'installation.
+Winhance Portable est une page HTML unique et autonome qui prolonge l'idée de [Winhance](https://github.com/memstechtips/Winhance) pour la rendre accessible sur davantage d'appareils. Ouvrez-la sur un téléphone, une tablette ou un ordinateur, choisissez les réglages Windows, les applications et les ajustements souhaités, et elle génère un fichier `autounattend.xml` pour une installation de Windows sans intervention.
 
-### Le catalogue
+**Rien n'est exécuté sur l'appareil où vous ouvrez la page.** Elle fabrique uniquement un fichier XML. Les actions ont lieu plus tard, au premier démarrage de Windows, lorsque ce fichier est utilisé comme `autounattend.xml`.
 
-| Contenu | Nombre |
-|---|---|
-| Réglages Winhance (10 onglets) | 420 |
-| Apps Windows à retirer | 56 |
-| Capacités Windows à retirer | 10 |
-| Fonctionnalités Windows à désactiver | 7 |
-| Apps à installer (winget) | 182 |
-| Raccourci « Install Winhance » sur les bureaux | 1 |
+## Pourquoi Winhance Portable ?
 
-Onglets de réglages : Confidentialité (90), Jeux et performances (107), Explorateur (87), Alimentation (48), Barre des tâches (28), Notifications (15), Mises à jour (14), Menu Démarrer (14), Thème (10), Son (7).
+Winhance est un excellent outil, mais il fonctionne sous Windows. Winhance Portable permet de préparer le même type de configuration depuis n'importe où :
 
-Les noms et descriptions sont en français quand Winhance les traduit.
+- **Tous les appareils** : Android, iOS, tablette, Linux, macOS ou Windows. Un navigateur récent suffit.
+- **Interface pensée pour le mobile** : grandes zones tactiles, navigation par dock en bas d'écran, prise en charge des zones sûres.
+- **Aucune installation, aucun serveur** : un seul fichier `.html` qui fonctionne hors ligne.
+- **Confidentialité** : vos choix restent dans le stockage local de votre navigateur et ne sont jamais envoyés ailleurs.
 
-### Comment lire les cases
+## Fonctionnalités
 
-- **Réglages** : trois états. **–** ne touche à rien (Windows garde son état), **On** applique la valeur « activée » de la fonction décrite, **Off** la valeur « désactivée ». Les listes et les cases Secteur/Batterie sont ignorées tant qu'elles restent sur « – ».
-- **Apps Windows** : case cochée = l'app est **retirée**. Décochée = elle reste. Jamais de réinstallation.
-- **Apps externes** : case cochée = l'app est **installée** (winget). Décochée = rien. Jamais de désinstallation.
-
-### Boutons et navigation
-
-Une barre en bas de l'écran, pour le pouce :
-
-- **Menu** : Recommandé Winhance pour tous les onglets, charger un fichier, vider l'onglet courant, tout réinitialiser, aide.
-- **Recommandé** : applique les choix de Winhance à l'**onglet courant** uniquement.
-- **Défaut Windows** : remet l'onglet courant aux **valeurs d'origine de Windows**. Sur les onglets d'apps, il devient « Tout décocher ». Il n'existe pas en version globale, volontairement.
-- **XML** : ouvre le fichier généré, avec Télécharger, Copier et Sélectionner. Un compteur indique le nombre de choix.
-
-Autres éléments : recherche dans toutes les options, onglets collés en haut, deux colonnes en paysage, notes repliables, messages courts au-dessus de la barre. Les choix sont mémorisés dans le navigateur de l'appareil.
-
-### Charger un fichier existant
-
-Le bouton « Charger un fichier » (dans le Menu) accepte :
-
-- un fichier **`.winhance`** (configuration exportée par Winhance) ;
-- un **`autounattend.xml`** créé par Winhance ou par cette page.
-
-La page coche les réglages reconnus. Vous les modifiez, puis vous récupérez un XML. Une partie des éléments d'un autounattend de Winhance peut ne pas être reconnue : le message affiché indique combien l'ont été.
-
-### Réglages spécifiques
-
-- **Plan d'alimentation** : Économie, Équilibré, Performances élevées, Performances ultimes, ou le **plan Winhance** (créé à partir de Performances ultimes). Les réglages d'alimentation cachés de Windows sont déverrouillés avant les valeurs.
-- **Edge et OneDrive** : retirés avec les vrais scripts de suppression de Winhance, embarqués dans le XML.
-- **Teams et Xbox** : les correctifs de Winhance sont ajoutés quand vous retirez ces apps (arrêt des processus Teams, redirection de la Game Bar).
-- **Différer les mises à jour jusqu'au bureau** (onglet « Mises à jour ») : bloque Windows Update pendant l'OOBE sans toucher au réseau ni au compte Microsoft, puis le réactive à la première session et lance une recherche. **Méthode non officielle**, non testée. Sur les ISO récentes, le bouton « Mettre à jour plus tard » de l'OOBE fait aussi l'affaire.
-
----
+- **Plus de 700 options** réparties sur 12 onglets, avec une recherche instantanée sur l'ensemble.
+- **Applications et fonctionnalités Windows** : retrait des applications intégrées, des capacités Windows et des fonctionnalités facultatives.
+- **Logiciels externes** : installation via `winget` (ou le Store, Chocolatey ou un téléchargement direct pour quelques-uns).
+- **Optimisations** : Confidentialité & Sécurité (dont les fonctions d'IA de Windows, Edge et Office), Alimentation (valeurs sur secteur et sur batterie), Jeux et Performances, Mise à jour, Notifications et Son.
+- **Personnalisations** : thème Windows, barre des tâches, menu Démarrer et Explorateur.
+- **Préréglages en un geste** pour l'onglet courant ou pour tous les onglets :
+  - **Recommandé Winhance** : les choix suggérés par Winhance.
+  - **Défaut Windows** : retour aux valeurs d'origine de Windows.
+- **Import** d'un fichier `.winhance` ou XML existant pour repartir de celui-ci.
+- **Export** du résultat : téléchargement du `.xml`, copie ou sélection du texte.
+- **Interface bilingue** (français et anglais), détectée automatiquement selon la langue de l'appareil.
+- **Thèmes clair et sombre** qui suivent le réglage du système.
 
 ## Utilisation
 
-1. Ouvrez la page, choisissez un onglet et réglez ce que vous voulez (ou utilisez **Recommandé**).
-2. Passez d'un onglet à l'autre. Le compteur de la barre du bas suit vos choix.
-3. Ouvrez **XML**, puis **Télécharger** (ou **Copier** et collez le contenu dans un fichier texte).
-4. Enregistrez le fichier sous le nom **`autounattend.xml`** et placez-le à la **racine** de l'ISO ou de la clé USB d'installation de Windows.
-5. Lancez l'installation. Les actions s'exécutent à la première ouverture de session.
+1. Ouvrez [Winhance Portable](/docs/index.html)` dans votre navigateur.
+2. Parcourez les groupes (**Logiciels & Apps**, **Optimisations**, **Personnalisations**) et leurs onglets, ou utilisez la barre de recherche.
+3. Faites vos choix :
+   - **Apps Windows** : case cochée = retirée.
+   - **Apps externes** : case cochée = installée.
+   - **Réglages** : utilisez l'interrupteur pour Activé/Désactivé, ou choisissez une option dans la liste.
+4. Appliquez éventuellement un préréglage (**Recommandé Winhance** ou **Défaut Windows**) depuis la barre du bas ou le menu.
+5. Ouvrez le panneau **XML**, puis téléchargez ou copiez l'`autounattend.xml` généré.
+6. Utilisez-le avec votre support d'installation de Windows ou votre procédure de déploiement.
 
-Testez **toujours dans une machine virtuelle** avant une vraie machine.
+> Décocher une app ne fait jamais l'inverse : une app Windows décochée est laissée telle quelle (jamais réinstallée), et une app externe décochée n'est simplement pas installée (jamais désinstallée).
 
----
+## Les onglets en un coup d'œil
 
-## Ce que contient le XML
+| Groupe | Onglets |
+| --- | --- |
+| Logiciels & Apps | Applications et fonctionnalités Windows · Logiciels externes |
+| Optimisations | Confidentialité & Sécurité · Alimentation · Jeux et Performances · Mise à jour · Notifications · Son |
+| Personnalisations | Thème Windows · Barre des tâches · Menu Démarrer · Explorateur |
 
-- une passe **windowsPE** minimale (acceptation de la licence), qui garantit que le fichier est bien copié par l'installeur ;
-- une passe **specialize** uniquement si la case « Différer les mises à jour » est cochée ;
-- une passe **oobeSystem** avec des **commandes au premier démarrage** (`FirstLogonCommands`) : valeurs de registre, tâches planifiées, alimentation, retrait d'apps, installations winget ;
-- une section **Extensions** qui embarque les scripts PowerShell nécessaires (Edge, OneDrive, correctifs, réglages à script). Ils sont extraits depuis `C:\Windows\Panther\unattend.xml` au premier démarrage, comme le fait Winhance.
+## À savoir
 
----
+- Le fichier généré **ne gère ni les disques ni les comptes**.
+- Les réglages utilisateur (HKCU) s'appliquent au **premier compte qui se connecte**.
+- Les apps `winget`, le raccourci Winhance et la recherche de mises à jour **demandent une connexion réseau**.
+- Un réglage sans valeur d'origine connue (les actions de nettoyage, par exemple) n'est pas modifié par **Défaut Windows**.
+- Lors de l'import d'un fichier, les parties non gérées par cette page (scripts, services, tâches) sont ignorées.
+- **Testez toujours dans une machine virtuelle avant une vraie machine.** Ces ajustements modifient des réglages profonds du système.
 
-## Limites connues
+## Crédits
 
-- **Non testé sur Windows.** Les tests portent sur la logique de la page, la validité du XML et le rechargement des choix. Le PowerShell n'a pas été exécuté.
-- Le XML produit est **plus simple que celui de Winhance** : une suite de commandes au premier démarrage, pas son script complet. Il n'est donc pas identique octet pour octet.
-- **Ni disques ni comptes** : le partitionnement, la création de compte et la langue ne sont pas gérés. Le réseau et le compte Microsoft ne sont pas modifiés.
-- Les réglages **utilisateur (HKCU)** s'appliquent au premier compte qui ouvre une session.
-- Les extractions de scripts exigent que le fichier serve d'**`autounattend.xml` à l'installation** (copie dans `C:\Windows\Panther`). Appliqué après coup, ce mécanisme peut ne pas fonctionner.
-- Les installations **winget**, le raccourci Winhance et la recherche de mises à jour demandent du **réseau** au premier démarrage.
-- Les réglages de **services** passent par la valeur `Start` du registre : ils prennent effet au redémarrage.
-- Les icônes de la zone de notification ne touchent que les icônes déjà présentes au premier démarrage.
-- Certains réglages n'existent que sous Windows 11, d'autres que sous Windows 10 (indiqué dans leur description).
-- Retirer **Edge** peut rendre Windows instable, comme Winhance l'indique.
-- Le rechargement du XML ne retrouve pas **tous** les choix : environ 13 sur 473 sont perdus lors d'un aller-retour avec le préréglage complet.
-- L'option « Afficher toutes les épingles par défaut » repose sur une valeur de registre documentée par Microsoft, sans pouvoir la comparer au code de Winhance.
+Winhance Portable s'inspire de [Winhance](https://github.com/memstechtips/Winhance) de memstechtips, dont il est un prolongement. Il s'agit d'un projet indépendant, sans affiliation ni approbation de l'auteur original ou de Microsoft.
 
----
+## Avertissement
 
-## Confidentialité
-
-Tout se passe dans le navigateur. La page ne contient aucune ressource externe et n'envoie aucune donnée. Les choix sont conservés localement (stockage du navigateur) et les fichiers chargés sont lus sur l'appareil.
-
----
-
-## Licence et crédits
-
-Winhance est l'œuvre de Marco du Plessis et de ses contributeurs, publié sous licence **PolyForm Shield 1.0.0**. Le catalogue de réglages, les traductions françaises et les scripts embarqués (suppression d'Edge et d'OneDrive, correctifs) en sont issus.
-
-Required Notice: Copyright (c) 2025 Marco du Plessis (https://github.com/Jeyloh/Winhance)
-
-- Licence de Winhance : <https://polyformproject.org/licenses/shield/1.0.0>
-- Projet d'origine : <https://github.com/memstechtips/Winhance>
-
-Ce projet est lui aussi distribué sous la licence **PolyForm Shield 1.0.0** (voir le fichier [`LICENSE`](LICENSE)), qui reprend la mention de copyright de Winhance ci-dessus. Cette page est un outil personnel, non affilié, qui n'a pas vocation à remplacer Winhance. Pour l'application complète, utilisez Winhance lui-même.
+Cet outil est fourni tel quel, sans aucune garantie. Vous êtes responsable de la configuration que vous générez et de son test avant tout déploiement.
