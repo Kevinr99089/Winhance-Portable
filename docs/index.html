@@ -25,7 +25,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-ap
 .crow .sep{flex:none;width:1px;margin:6px 4px;background:var(--line)}
 
 .selbar{display:flex;gap:8px;margin:0 10px 10px}
-.selbar button{flex:1;min-height:44px;border-radius:10px;border:1px solid var(--acc);background:none;color:var(--acc);font:inherit;font-weight:600}
+.selbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;flex:1 1 0;min-width:0;min-height:48px;padding:4px 8px;border-radius:999px;border:1px solid var(--acc);background:none;color:var(--acc);font:inherit;font-size:.78rem;font-weight:600;line-height:1.1;text-align:center}
+.selbar svg{flex:none;width:20px;height:20px}
 .selbar button:active{background:var(--bg)}
 
 .cols{column-width:330px;column-gap:10px;padding:0 10px}
@@ -86,48 +87,64 @@ textarea{width:100%;height:46vh;min-height:220px;background:var(--code);color:va
 .sheet li{margin:4px 0}
 .sheet textarea{height:34vh;min-height:140px}
 
+.allbox{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 8px 8px;margin:8px 0 10px}
+.allt{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:0 8px;background:var(--card);font-size:.74rem;font-weight:700;line-height:1.2;color:var(--mute)}
+.bigs{display:flex;gap:8px}
+.big{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex:1 1 0;min-width:0;min-height:52px;padding:4px 8px;border-radius:10px;border:1px solid var(--mute);background:none;color:var(--ink);font:inherit;font-size:.82rem;font-weight:600;line-height:1.1;text-align:center}
+.big i{font-style:normal;font-size:1.2rem;line-height:1;flex:none}
+.big.p{border-color:var(--acc);color:var(--acc)}
+.big:active{background:var(--bg)}
 .mrow{display:flex;flex-wrap:wrap;gap:0 6px}
+.two{display:flex;gap:6px}
+.two .mb{flex:1 1 0;width:auto;min-width:0;justify-content:center;gap:8px;text-align:center;line-height:1.15}
+.lt{display:flex;flex-direction:column;align-items:center;gap:1px}
+.lt small{font-size:.72rem;font-weight:400;color:var(--mute)}
+.two svg{flex:none}
 .mb{display:flex;align-items:center;width:100%;min-height:50px;padding:0 12px;margin-bottom:6px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left}
 .mb.p{border-color:var(--acc);color:var(--acc);font-weight:600}
 .mrow .mb{flex:1 1 220px;width:auto}
 label.mb input{display:none}
+.mb.danger{background:none;border-color:#c42b1c;color:#c42b1c;font-weight:600}
+.mb.danger:active{background:var(--bg)}
+#mClear,#mReset{min-height:40px}
+.conf{display:flex;align-items:center;gap:6px;min-height:40px;margin-bottom:6px}
+.conf>span{flex:1;min-width:0;color:#c42b1c;font-weight:600}
+.conf button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-weight:600}
+.conf button.yes{background:#107c10;border-color:#107c10;color:#fff}
+.conf button b{font-size:1.1rem;line-height:1}
 
 .toast{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(var(--dock) + env(safe-area-inset-bottom,0px) + 10px);z-index:40;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 
-.sheet[hidden],.shade[hidden],.selbar[hidden]{display:none}
+.sheet[hidden],.shade[hidden],.selbar[hidden],.mb[hidden],.conf[hidden]{display:none}
 </style>
 </head>
 <body>
 <div class="top"><input type="search" id="q"></div>
 <div class="chips" id="chips"></div>
-<div class="selbar" id="selbar" hidden><button id="bAll" type="button" data-i="selAll"></button><button id="bNone" type="button" data-i="selNone"></button></div>
+<div class="selbar" id="selbar" hidden><button id="bInv" class="inv" type="button"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 8h13M14.5 4.5L18 8l-3.5 3.5M19 16H6M9.5 12.5L6 16l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="inv"></span></button><button id="bNone" type="button"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/></svg><span data-i="noneS"></span></button><button id="bAll" type="button"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4.5" fill="currentColor"/><path d="M7 12.5l3.4 3.4L17 8.8" fill="none" stroke="var(--accink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="allS"></span></button></div>
 <main id="list" class="cols"></main>
 <div class="toast" id="toast"></div>
 <div class="shade" id="shade" hidden></div>
 <section class="sheet" id="sMenu" role="dialog" aria-modal="true" hidden>
-<div class="mrow"><button class="mb p" id="mRec" type="button" data-i="mRec"></button>
-<button class="mb" id="mWin" type="button" data-i="mWin"></button></div>
-<label class="mb"><span data-i="load"></span><input type="file" id="file" accept=".winhance,.json,.xml,.txt,application/json,text/xml,application/xml,*/*"></label>
+<div class="allbox" role="group" aria-labelledby="allT"><div class="allt" id="allT" data-i="allT"></div>
+<div class="bigs"><button class="big p" id="mRec" type="button"><i aria-hidden="true">★</i><span data-i="mRec"></span></button>
+<button class="big" id="mWin" type="button"><i aria-hidden="true">↺</i><span data-i="mWin"></span></button></div></div>
+<div class="two"><label class="mb"><span class="lt"><span data-i="load"></span><small data-i="loadS"></small></span><input type="file" id="file" accept=".winhance,.json,.xml,.txt,application/json,text/xml,application/xml,*/*"></label>
+<button class="mb" id="dl" type="button"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3.5v11M7.5 10.5l4.5 4.5 4.5-4.5M4.5 15.5v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="dl"></span></button></div>
 <button class="mb" id="mClear" type="button" data-i="clear"></button>
-<button class="mb" id="mReset" type="button"></button>
+<div class="conf" id="cConf" hidden><span data-i="clearC"></span><button class="yes" id="cYes" type="button"><b aria-hidden="true">✓</b><span data-i="valid"></span></button><button class="no" id="cNo" type="button"><b aria-hidden="true">✕</b><span data-i="cancel"></span></button></div>
+<button class="mb danger" id="mReset" type="button"></button>
+<div class="conf" id="rConf" hidden><span data-i="resetC"></span><button class="yes" id="rYes" type="button"><b aria-hidden="true">✓</b><span data-i="valid"></span></button><button class="no" id="rNo" type="button"><b aria-hidden="true">✕</b><span data-i="cancel"></span></button></div>
 <details><summary data-i="readT"></summary>
 <ul data-h="readH"></ul></details>
 </section>
-<section class="sheet" id="sXml" role="dialog" aria-modal="true" aria-label="autounattend.xml" hidden>
-<h2 style="font-size:1rem;margin:0 0 2px">autounattend.xml</h2>
-<p class="meta" id="meta" style="margin:0 0 8px;color:var(--mute);font-size:.82rem"></p>
-<textarea id="xml" readonly spellcheck="false"></textarea>
-<div class="btns"><button id="dl" type="button" data-i="dl"></button><button class="s" id="copy" type="button" data-i="copy"></button><button class="s" id="sel" type="button" data-i="sel"></button></div>
-<details><summary data-i="know"></summary><p class="note" data-i="note"></p></details>
-</section>
 <nav class="dock">
-<button id="bMenu" type="button"><i aria-hidden="true">☰</i><span data-i="menu"></span></button>
+<button id="bMenu" type="button"><i aria-hidden="true">☰</i><span data-i="menu"></span><b id="cnt"></b></button>
 <button id="bRec" type="button"><i aria-hidden="true">★</i><span data-i="rec"></span><small id="bRecT"></small></button>
 <button id="bWin" type="button"><i aria-hidden="true">↺</i><span id="bWinT"></span><small id="bWinS"></small></button>
-<button id="bXml" type="button"><i aria-hidden="true">&lt;/&gt;</i><span>XML</span><b id="cnt"></b></button>
 </nav>
 <script>
 
@@ -144,27 +161,25 @@ const GRP=[{id:'soft',tabs:['Apps','Ext']},{id:'optim',tabs:['Privacy','Power','
 const GLS={fr:{soft:'Logiciels & Apps',optim:'Optimisations',perso:'Personnalisations'},en:{soft:'Software & Apps',optim:'Optimizations',perso:'Customization'}};
 let FL=FLS[lang];
 const pick=(x,k)=>lang==='en'&&x[k+'e']!=null?x[k+'e']:x[k];
-const T={fr:{title:"Winhance Portable",ph:n=>'Rechercher parmi '+n+' options',mRec:'★ Recommandé Winhance : tous les onglets',mWin:'Défaut Windows : tous les onglets',winAll:n=>'Défaut Windows appliqué à tous les onglets ('+n+' choix).',load:'📂 Charger un fichier (.winhance ou XML)',clear:"Vider l'onglet courant",reset:'Tout réinitialiser',resetC:'Confirmer : tout effacer ?',readT:'Aide : comment lire cette page',
-readH:"<li><b>Rien n'est exécuté ici.</b> La page fabrique un fichier XML. Les actions ont lieu au premier démarrage de Windows, lorsque vous l'utilisez comme autounattend.xml.</li><li><b>Réglages</b> : seuls les réglages que vous modifiez sont ajoutés au fichier ; un réglage laissé tel quel n'est pas inclus. L'interrupteur choisit « activé » ou « désactivé », et une liste applique l'option choisie.</li><li><b>Apps Windows</b> : case cochée = conservée, case décochée = retirée. <b>Logiciels externes</b> : case cochée = installée (winget), case décochée = rien n'est installé.</li><li><b>Recommandé Winhance</b> (barre du bas) = choix de Winhance pour l'onglet courant. <b>Défaut Windows</b> = valeurs d'origine de Windows pour l'onglet courant. Les deux boutons « tous les onglets » du menu, ci-dessus, font la même chose pour tous les onglets.</li><li>Un réglage sans valeur d'origine connue (actions de nettoyage, par exemple) n'est pas modifié par « Défaut Windows ».</li>",
-dl:'Télécharger .xml',copy:'Copier',copied:'Copié',sel:'Sélectionner',know:'À savoir',note:"Ce fichier ne gère ni les disques ni les noms et mots de passe des comptes. Les réglages utilisateur (HKCU) s'appliquent au premier compte qui se connecte. Les apps winget, le raccourci Winhance et la recherche de mises à jour demandent une connexion réseau. Testez toujours dans une machine virtuelle avant une vraie machine.",
-menu:'Menu',rec:'Recommandé Winhance',win:'Défaut Windows',unc:'Défaut Windows',create:'Créer',install:'Installer',apply:'Appliquer',ac:'Secteur',dc:'Batterie',none:'Aucun résultat.',general:'Général',onL:'Activé',offL:'Désactivé',
-meta:(k,n,s)=>k+' choix · '+n+' commande(s) · '+s+' Ko',recT:(a,n)=>'Recommandé Winhance · '+a+' : '+n+' choix appliqués.',winT:(a,n)=>'Défaut Windows · '+a+' : '+n+" réglages remis aux valeurs d'origine.",winA:(a,n)=>a+' : '+n+' case(s) décochée(s).',recAll:n=>'Recommandé Winhance appliqué à tous les onglets ('+n+' choix).',cleared:(a,n)=>a+' : '+n+' choix retirés.',allC:'Tous les choix ont été effacés.',selAll:'Tout sélectionner',selNone:'Tout désélectionner',tabOn:(a,n)=>a+' : '+n+' case(s) cochée(s).',tabOff:(a,n)=>a+' : '+n+' case(s) décochée(s).',imp:(a,n)=>a+' : '+n+' élément(s) reconnu(s). Les parties non gérées par cette page (scripts, services, tâches) sont ignorées.',dlF:'Téléchargement impossible ici : utilisez Copier.',
+const T={fr:{title:"Winhance Portable",ph:n=>'Rechercher parmi '+n+' options',mRec:'Recommandé Winhance',mWin:'Défaut Windows',allT:'Tous les onglets',winAll:n=>'Défaut Windows appliqué à tous les onglets ('+n+' choix).',load:'📂 Charger un fichier',loadS:'.winhance ou .XML',clear:"Réinitialiser cet onglet",clearC:'Réinitialiser cet onglet ?',reset:'Tout réinitialiser',resetC:'Tout effacer ?',valid:'Valider',cancel:'Annuler',readT:'Aide',
+readH:"<li><b>Rien n'est exécuté ici.</b> La page fabrique un fichier XML. Les actions ont lieu au premier démarrage de Windows, lorsque vous l'utilisez comme autounattend.xml.</li><li><b>Réglages</b> : seuls les réglages que vous modifiez sont ajoutés au fichier ; un réglage laissé tel quel n'est pas inclus. L'interrupteur choisit « activé » ou « désactivé », et une liste applique l'option choisie.</li><li><b>Apps Windows</b> : case cochée = conservée, case décochée = retirée. <b>Logiciels externes</b> : case cochée = installée (winget), case décochée = rien n'est installé.</li><li><b>Recommandé Winhance</b> (barre du bas) = choix de Winhance pour l'onglet courant. <b>Défaut Windows</b> = valeurs d'origine de Windows pour l'onglet courant. Les deux boutons « tous les onglets » du menu, ci-dessus, font la même chose pour tous les onglets.</li><li>Un réglage sans valeur d'origine connue (actions de nettoyage, par exemple) n'est pas modifié par « Défaut Windows ».</li><li><b>À savoir</b> : ce fichier ne gère ni les disques ni les noms et mots de passe des comptes. Les réglages utilisateur (HKCU) s'appliquent au premier compte qui se connecte. Les apps winget, le raccourci Winhance et la recherche de mises à jour demandent une connexion réseau. Testez toujours dans une machine virtuelle avant une vraie machine.</li>",
+dl:'Télécharger le XML',menu:'Menu',rec:'Recommandé Winhance',win:'Défaut Windows',unc:'Défaut Windows',curT:'onglet en cours',create:'Créer',install:'Installer',apply:'Appliquer',ac:'Secteur',dc:'Batterie',none:'Aucun résultat.',general:'Général',onL:'Activé',offL:'Désactivé',
+recT:(a,n)=>'Recommandé Winhance · '+a+' : '+n+' choix appliqués.',winT:(a,n)=>'Défaut Windows · '+a+' : '+n+" réglages remis aux valeurs d'origine.",winA:(a,n)=>a+' : '+n+' case(s) décochée(s).',recAll:n=>'Recommandé Winhance appliqué à tous les onglets ('+n+' choix).',cleared:(a,n)=>a+' : '+n+' choix retirés.',allC:'Tous les choix ont été effacés.',selAll:'Tout sélectionner',selNone:'Tout désélectionner',allS:'Tout',noneS:'Aucun',inv:'Inverser la sélection',invT:(a,n)=>a+' : sélection inversée ('+n+' éléments).',tabOn:(a,n)=>a+' : '+n+' case(s) cochée(s).',tabOff:(a,n)=>a+' : '+n+' case(s) décochée(s).',imp:(a,n)=>a+' : '+n+' élément(s) reconnu(s). Les parties non gérées par cette page (scripts, services, tâches) sont ignorées.',dlC:'Téléchargement impossible ici : le XML a été copié dans le presse-papiers.',dlF:'Téléchargement impossible sur cet appareil.',
 keep:'Conserver',winAA:(a,n)=>a+' : '+n+' modification(s) annulée(s), tout est de nouveau coché.'},
-en:{title:'Winhance Portable',ph:n=>'Search '+n+' options',mRec:'★ Winhance recommended: all tabs',mWin:'Windows default: all tabs',winAll:n=>'Windows default applied to all tabs ('+n+' choices).',load:'📂 Load a file (.winhance or XML)',clear:'Clear current tab',reset:'Reset everything',resetC:'Confirm: erase everything?',readT:'Help: how to read this page',
-readH:"<li><b>Nothing is run here.</b> This page builds an XML file. Actions take place the first time Windows starts, when you use it as autounattend.xml.</li><li><b>Settings</b>: only the settings you change are added to the file; a setting left as is is not included. The switch picks “enabled” or “disabled”, and a list applies the chosen option.</li><li><b>Windows apps</b>: checked = kept, unchecked = removed. <b>External software</b>: checked = installed (winget), unchecked = nothing is installed.</li><li><b>Winhance recommended</b> (bottom bar) = Winhance's choices for the current tab. <b>Windows default</b> = Windows' original values for the current tab. The two “all tabs” buttons in the menu above do the same for every tab.</li><li>A setting with no known original value (cleanup actions, for example) is not changed by “Windows default”.</li>",
-dl:'Download .xml',copy:'Copy',copied:'Copied',sel:'Select',know:'Good to know',note:'This file does not handle disks or account names and passwords. User settings (HKCU) apply to the first account that signs in. winget apps, the Winhance shortcut and the update check require a network connection. Always test in a virtual machine before using a real machine.',
-menu:'Menu',rec:'Winhance recommended',win:'Windows default',unc:'Windows default',create:'Create',install:'Install',apply:'Apply',ac:'Plugged in',dc:'On battery',none:'No results.',general:'General',onL:'On',offL:'Off',
-meta:(k,n,s)=>k+' choice(s) · '+n+' command(s) · '+s+' KB',recT:(a,n)=>'Winhance recommended · '+a+': '+n+' choices applied.',winT:(a,n)=>'Windows default · '+a+': '+n+' settings restored to their original values.',winA:(a,n)=>a+': '+n+' box(es) unchecked.',recAll:n=>'Winhance recommended applied to all tabs ('+n+' choices).',cleared:(a,n)=>a+': '+n+' choices removed.',allC:'All choices have been cleared.',selAll:'Select all',selNone:'Deselect all',tabOn:(a,n)=>a+': '+n+' box(es) checked.',tabOff:(a,n)=>a+': '+n+' box(es) unchecked.',imp:(a,n)=>a+': '+n+' item(s) recognized. Parts not handled by this page (scripts, services, tasks) are ignored.',dlF:'Download not possible here: use Copy.',
+en:{title:'Winhance Portable',ph:n=>'Search '+n+' options',mRec:'Winhance recommended',mWin:'Windows default',allT:'All tabs',winAll:n=>'Windows default applied to all tabs ('+n+' choices).',load:'📂 Load a file',loadS:'.winhance or .XML',clear:'Reset this tab',clearC:'Reset this tab?',reset:'Reset everything',resetC:'Erase everything?',valid:'Confirm',cancel:'Cancel',readT:'Help',
+readH:"<li><b>Nothing is run here.</b> This page builds an XML file. Actions take place the first time Windows starts, when you use it as autounattend.xml.</li><li><b>Settings</b>: only the settings you change are added to the file; a setting left as is is not included. The switch picks “enabled” or “disabled”, and a list applies the chosen option.</li><li><b>Windows apps</b>: checked = kept, unchecked = removed. <b>External software</b>: checked = installed (winget), unchecked = nothing is installed.</li><li><b>Winhance recommended</b> (bottom bar) = Winhance's choices for the current tab. <b>Windows default</b> = Windows' original values for the current tab. The two “all tabs” buttons in the menu above do the same for every tab.</li><li>A setting with no known original value (cleanup actions, for example) is not changed by “Windows default”.</li><li><b>Good to know</b>: this file does not handle disks or account names and passwords. User settings (HKCU) apply to the first account that signs in. winget apps, the Winhance shortcut and the update check require a network connection. Always test in a virtual machine before using a real machine.</li>",
+dl:'Download XML',menu:'Menu',rec:'Winhance recommended',win:'Windows default',unc:'Windows default',curT:'current tab',create:'Create',install:'Install',apply:'Apply',ac:'Plugged in',dc:'On battery',none:'No results.',general:'General',onL:'On',offL:'Off',
+recT:(a,n)=>'Winhance recommended · '+a+': '+n+' choices applied.',winT:(a,n)=>'Windows default · '+a+': '+n+' settings restored to their original values.',winA:(a,n)=>a+': '+n+' box(es) unchecked.',recAll:n=>'Winhance recommended applied to all tabs ('+n+' choices).',cleared:(a,n)=>a+': '+n+' choices removed.',allC:'All choices have been cleared.',selAll:'Select all',selNone:'Deselect all',allS:'All',noneS:'None',inv:'Invert selection',invT:(a,n)=>a+': selection inverted ('+n+' items).',tabOn:(a,n)=>a+': '+n+' box(es) checked.',tabOff:(a,n)=>a+': '+n+' box(es) unchecked.',imp:(a,n)=>a+': '+n+' item(s) recognized. Parts not handled by this page (scripts, services, tasks) are ignored.',dlC:'Download not possible here: the XML was copied to the clipboard.',dlF:'Download not possible on this device.',
 keep:'Keep',winAA:(a,n)=>a+': '+n+' change(s) reverted, everything is checked again.'}};
 const t=(k,...a)=>{const v=T[lang][k]!==undefined?T[lang][k]:T.fr[k];return typeof v==='function'?v(...a):v};
-function applyLang(){document.documentElement.lang=lang;document.title=t('title');document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-h]').forEach(e=>e.innerHTML=t(e.dataset.h));{const ph=t('ph',D.s.length+D.a.length+D.e.length);$('q').placeholder=ph;$('q').setAttribute('aria-label',ph)}$('sMenu').setAttribute('aria-label',t('menu'));if(!rt)$('mReset').textContent=t('reset')}
+function applyLang(){document.documentElement.lang=lang;document.title=t('title');document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-h]').forEach(e=>e.innerHTML=t(e.dataset.h));{const ph=t('ph',D.s.length+D.a.length+D.e.length);$('q').placeholder=ph;$('q').setAttribute('aria-label',ph)}$('sMenu').setAttribute('aria-label',t('menu'));[['bAll','selAll'],['bNone','selNone'],['bInv','inv']].forEach(x=>{$(x[0]).setAttribute('aria-label',t(x[1]));$(x[0]).title=t(x[1])});$('mReset').textContent=t('reset')}
 
 const grpOf=t=>GRP.find(g=>g.tabs.includes(t))||GRP[0];
 const lastTab={};
 const byId={};D.s.forEach(x=>byId[x.id]=x);
 const aId={};D.a.forEach(x=>aId[x.id]=x);
 const eId={};D.e.forEach(x=>eId[x.id]=x);
-let st={},tab='Apps',q='',rt=0;
+let st={},tab='Apps',q='';
 const $=id=>document.getElementById(id);
 try{st=JSON.parse(localStorage.getItem('ub3')||'{}')}catch(e){}
 try{const nv=JSON.parse(localStorage.getItem('ub-nav')||'{}');if(nv.last&&typeof nv.last==='object')GRP.forEach(g=>{if(g.tabs.includes(nv.last[g.id]))lastTab[g.id]=nv.last[g.id]});if(GRP.some(g=>g.tabs.includes(nv.tab)))tab=nv.tab}catch(e){}
@@ -224,7 +239,7 @@ function xml(){
 const isApp=t=>t==='Apps'||t==='Ext';
 let tt=0;
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),5500)}
-function build(){const [o,n]=xml();$('xml').value=o;const k=Object.keys(st).length;$('meta').textContent=t('meta',k,n,Math.round(o.length/1024));$('cnt').textContent=k||''}
+function build(){const k=Object.keys(st).length;$('cnt').textContent=k||''}
 function cnt(f){return Object.keys(st).filter(k=>k.startsWith('a:')?f==='Apps':k.startsWith('e:')?f==='Ext':(byId[k]||{}).f===f).length}
 let chipTab=null;
 function chips(){const g0=grpOf(tab);
@@ -262,9 +277,9 @@ const AG=x=>x.pre==='a:'?(x.feat?1:x.cap?2:0):-1;
 const AGL={fr:['Applications Windows','Fonctionnalités de Windows','Fonctionnalités facultatives de Windows'],en:['Windows apps','Windows features','Windows optional features']};
 function render(){
  applyLang();chips();try{localStorage.setItem('ub-nav',JSON.stringify({tab:tab,last:lastTab}))}catch(e){}
- $('bRecT').textContent=FL[tab];
- $('bWinT').textContent=isApp(tab)?t('unc'):t('win');$('bWinS').textContent=FL[tab];
- $('selbar').hidden=!isApp(tab)||!!q;
+ $('bRecT').textContent=t('curT');
+ $('bWinT').textContent=isApp(tab)?t('unc'):t('win');$('bWinS').textContent=t('curT');
+ $('selbar').hidden=tab!=='Apps'||!!q;
  const all=D.s.concat(D.a.map(a=>Object.assign({pre:'a:',f:'Apps'},a)),D.e.map(a=>Object.assign({pre:'e:',f:'Ext'},a)));
  const ql=q.toLowerCase();
  const L=all.filter(x=>ql?((pick(x,'n')||'')+' '+(pick(x,'d')||'')).toLowerCase().includes(ql):x.f===tab);
@@ -320,18 +335,25 @@ function importText(txt,name){
  toast(t('imp',name,n));
 }
 
-const SH=['sMenu','sXml'];
-function closeSheets(){SH.forEach(s=>$(s).hidden=true);$('shade').hidden=true}
-function sheet(id){const was=!$(id).hidden;closeSheets();if(!was){$(id).hidden=false;$('shade').hidden=false;if(id==='sXml')build()}}
-$('bMenu').onclick=()=>sheet('sMenu');$('bXml').onclick=()=>sheet('sXml');$('shade').onclick=closeSheets;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheets()});
+const SH=['sMenu'];
+function closeSheets(){SH.forEach(s=>$(s).hidden=true);$('shade').hidden=true;resetConf(false);clearConf(false)}
+function sheet(id){const was=!$(id).hidden;closeSheets();if(!was){$(id).hidden=false;$('shade').hidden=false}}
+$('bMenu').onclick=()=>sheet('sMenu');$('shade').onclick=closeSheets;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheets()});
 $('bRec').onclick=()=>{closeSheets();const n=recTab(tab);save();render();toast(t('recT',FL[tab],n))};
 $('bWin').onclick=()=>{closeSheets();const n=winTab(tab);save();render();toast(tab==='Apps'?t('winAA',FL[tab],n):tab==='Ext'?t('winA',FL[tab],n):t('winT',FL[tab],n))};
 $('bAll').onclick=()=>{let n=0;const inv=tab==='Apps';tabKeys(tab).forEach(k=>{if(inv){if(st[k]!==undefined){delete st[k];n++}}else if(!st[k]){st[k]=1;n++}});save();render();toast(t('tabOn',FL[tab],n))};
 $('bNone').onclick=()=>{let n=0;const inv=tab==='Apps';tabKeys(tab).forEach(k=>{if(inv){if(!st[k]){st[k]=1;n++}}else if(st[k]!==undefined){delete st[k];n++}});save();render();toast(t('tabOff',FL[tab],n))};
+$('bInv').onclick=()=>{const k=tabKeys(tab);k.forEach(x=>{if(st[x]!==undefined)delete st[x];else st[x]=1});save();render();toast(t('invT',FL[tab],k.length))};
 $('mWin').onclick=()=>{let n=0;GRP.forEach(g=>g.tabs.forEach(x=>{n+=winTab(x)}));save();closeSheets();render();toast(t('winAll',n))};
 $('mRec').onclick=()=>{st=JSON.parse(JSON.stringify(D.p));save();closeSheets();render();toast(t('recAll',Object.keys(D.p).length))};
-$('mClear').onclick=()=>{const k=tabKeys(tab);let n=0;k.forEach(x=>{if(st[x]!==undefined){delete st[x];n++}});save();closeSheets();render();toast(t('cleared',FL[tab],n))};
-$('mReset').onclick=()=>{const b=$('mReset');if(!rt){rt=setTimeout(()=>{rt=0;b.textContent=t('reset')},3000);b.textContent=t('resetC');return}clearTimeout(rt);rt=0;b.textContent=t('reset');st={};save();closeSheets();render();toast(t('allC'))};
+function clearConf(on){$('mClear').hidden=on;$('cConf').hidden=!on}
+$('mClear').onclick=()=>{resetConf(false);clearConf(true)};
+$('cNo').onclick=()=>clearConf(false);
+$('cYes').onclick=()=>{clearConf(false);const k=tabKeys(tab);let n=0;k.forEach(x=>{if(st[x]!==undefined){delete st[x];n++}});save();closeSheets();render();toast(t('cleared',FL[tab],n))};
+function resetConf(on){$('mReset').hidden=on;$('rConf').hidden=!on}
+$('mReset').onclick=()=>{clearConf(false);resetConf(true)};
+$('rNo').onclick=()=>resetConf(false);
+$('rYes').onclick=()=>{resetConf(false);st={};save();closeSheets();render();toast(t('allC'))};
 $('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{closeSheets();importText(String(r.result),f.name)};r.readAsText(f);e.target.value=''};
 $('chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.grp){const g=GRP.find(x=>x.id===b.dataset.grp);tab=lastTab[g.id]||g.tabs[0]}else{tab=b.dataset.tab}lastTab[grpOf(tab).id]=tab;q='';$('q').value='';render();window.scrollTo(0,0)};
 $('q').oninput=e=>{q=e.target.value.trim();render()};
@@ -343,11 +365,7 @@ $('list').onchange=e=>{const el=e.target,d=el.dataset;
  else if(d.t){st[d.t]=el.checked?'on':'off';el.parentNode.querySelector('em').textContent=t(el.checked?'onL':'offL')}
  else return;
  save();build();chips()};
-$('sel').onclick=()=>{const ta=$('xml');ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length)};
-$('dl').onclick=()=>{try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([$('xml').value],{type:'application/xml'}));a.download='autounattend.xml';document.body.appendChild(a);a.click();a.remove()}catch(e){toast(t('dlF'))}};
-$('copy').onclick=async()=>{const ta=$('xml'),b=$('copy');
- try{await navigator.clipboard.writeText(ta.value)}catch(e){ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);try{document.execCommand('copy')}catch(e2){}}
- b.textContent=t('copied');setTimeout(()=>b.textContent=t('copy'),1500)};
+$('dl').onclick=async()=>{const o=xml()[0];try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([o],{type:'application/xml'}));a.download='autounattend.xml';document.body.appendChild(a);a.click();a.remove()}catch(e){try{await navigator.clipboard.writeText(o);toast(t('dlC'))}catch(e2){toast(t('dlF'))}}};
 render();
 </script>
 </body>
