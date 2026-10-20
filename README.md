@@ -76,6 +76,7 @@ Winhance is a great tool, but it runs on Windows. Winhance Portable lets you pre
 ## Credits
 
 Winhance Portable is inspired by [Winhance](https://github.com/memstechtips/Winhance) by memstechtips, and was created as an extension of it. This is an independent project and is not affiliated with or endorsed by the original author or by Microsoft.
+- AI-assisted (by Claude) · Designed and directed by me.
 
 ## Disclaimer
 
