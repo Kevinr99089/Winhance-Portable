@@ -138,6 +138,8 @@ label.mb input{display:none}
 <div class="conf" id="cConf" hidden><span data-i="clearC"></span><button class="yes" id="cYes" type="button"><b aria-hidden="true">✓</b><span data-i="valid"></span></button><button class="no" id="cNo" type="button"><b aria-hidden="true">✕</b><span data-i="cancel"></span></button></div>
 <button class="mb danger" id="mReset" type="button"></button>
 <div class="conf" id="rConf" hidden><span data-i="resetC"></span><button class="yes" id="rYes" type="button"><b aria-hidden="true">✓</b><span data-i="valid"></span></button><button class="no" id="rNo" type="button"><b aria-hidden="true">✕</b><span data-i="cancel"></span></button></div>
+<button class="mb" id="mKeep" type="button" hidden></button>
+<div class="conf" id="kConf" hidden><span data-i="keepC"></span><button class="yes" id="kYes" type="button"><b aria-hidden="true">✓</b><span data-i="valid"></span></button><button class="no" id="kNo" type="button"><b aria-hidden="true">✕</b><span data-i="cancel"></span></button></div>
 <details><summary data-i="readT"></summary>
 <ul data-h="readH"></ul></details>
 </section>
@@ -162,14 +164,14 @@ const GLS={fr:{soft:'Logiciels & Apps',optim:'Optimisations',perso:'Personnalisa
 let FL=FLS[lang];
 const pick=(x,k)=>lang==='en'&&x[k+'e']!=null?x[k+'e']:x[k];
 const T={fr:{title:"Winhance Portable",ph:n=>'Rechercher parmi '+n+' options',mRec:'Recommandé Winhance',mWin:'Défaut Windows',allT:'Tous les onglets',winAll:n=>'Défaut Windows appliqué à tous les onglets ('+n+' choix).',load:'📂 Charger un fichier',loadS:'.winhance ou .XML',clear:"Réinitialiser cet onglet",clearC:'Réinitialiser cet onglet ?',reset:'Tout réinitialiser',resetC:'Tout effacer ?',valid:'Valider',cancel:'Annuler',readT:'Aide',
-readH:"<li><b>Rien n'est exécuté ici.</b> La page fabrique un fichier XML. Les actions ont lieu au premier démarrage de Windows, lorsque vous l'utilisez comme autounattend.xml.</li><li><b>Réglages</b> : seuls les réglages que vous modifiez sont ajoutés au fichier ; un réglage laissé tel quel n'est pas inclus. L'interrupteur choisit « activé » ou « désactivé », et une liste applique l'option choisie.</li><li><b>Apps Windows</b> : case cochée = conservée, case décochée = retirée. <b>Logiciels externes</b> : case cochée = installée (winget), case décochée = rien n'est installé.</li><li><b>Recommandé Winhance</b> (barre du bas) = choix de Winhance pour l'onglet courant. <b>Défaut Windows</b> = valeurs d'origine de Windows pour l'onglet courant. Les deux boutons « tous les onglets » du menu, ci-dessus, font la même chose pour tous les onglets.</li><li>Un réglage sans valeur d'origine connue (actions de nettoyage, par exemple) n'est pas modifié par « Défaut Windows ».</li><li><b>À savoir</b> : ce fichier ne gère ni les disques ni les noms et mots de passe des comptes. Les réglages utilisateur (HKCU) s'appliquent au premier compte qui se connecte. Les apps winget, le raccourci Winhance et la recherche de mises à jour demandent une connexion réseau. Testez toujours dans une machine virtuelle avant une vraie machine.</li>",
+readH:"<li><b>Rien n'est exécuté ici.</b> La page fabrique un fichier XML. Les actions ont lieu au premier démarrage de Windows, lorsque vous l'utilisez comme autounattend.xml.</li><li><b>Réglages</b> : seuls les réglages que vous modifiez sont ajoutés au fichier ; un réglage laissé tel quel n'est pas inclus. L'interrupteur choisit « activé » ou « désactivé », et une liste applique l'option choisie.</li><li><b>Apps Windows</b> : case cochée = conservée, case décochée = retirée. <b>Logiciels externes</b> : case cochée = installée (winget), case décochée = rien n'est installé.</li><li><b>Recommandé Winhance</b> (barre du bas) = choix de Winhance pour l'onglet courant. <b>Défaut Windows</b> = valeurs d'origine de Windows pour l'onglet courant. Les deux boutons « tous les onglets » du menu, ci-dessus, font la même chose pour tous les onglets.</li><li>Un réglage sans valeur d'origine connue (actions de nettoyage, par exemple) n'est pas modifié par « Défaut Windows ».</li><li><b>Éléments non gérés</b> : à l'import, les commandes et scripts que cette page ne sait pas afficher sont conservés tels quels et réinclus dans le XML téléchargé. Le bouton « Éléments importés conservés » du menu, ou « Tout réinitialiser », les retire.</li><li><b>À savoir</b> : ce fichier ne gère ni les disques ni les noms et mots de passe des comptes. Les réglages utilisateur (HKCU) s'appliquent au premier compte qui se connecte. Les apps winget, le raccourci Winhance et la recherche de mises à jour demandent une connexion réseau. Testez toujours dans une machine virtuelle avant une vraie machine.</li>",
 dl:'Télécharger le XML',menu:'Menu',rec:'Recommandé Winhance',win:'Défaut Windows',unc:'Défaut Windows',curT:'onglet en cours',create:'Créer',install:'Installer',apply:'Appliquer',ac:'Secteur',dc:'Batterie',none:'Aucun résultat.',general:'Général',onL:'Activé',offL:'Désactivé',
-recT:(a,n)=>'Recommandé Winhance · '+a+' : '+n+' choix appliqués.',winT:(a,n)=>'Défaut Windows · '+a+' : '+n+" réglages remis aux valeurs d'origine.",winA:(a,n)=>a+' : '+n+' case(s) décochée(s).',recAll:n=>'Recommandé Winhance appliqué à tous les onglets ('+n+' choix).',cleared:(a,n)=>a+' : '+n+' choix retirés.',allC:'Tous les choix ont été effacés.',selAll:'Tout sélectionner',selNone:'Tout désélectionner',allS:'Tout',noneS:'Aucun',inv:'Inverser la sélection',invT:(a,n)=>a+' : sélection inversée ('+n+' éléments).',tabOn:(a,n)=>a+' : '+n+' case(s) cochée(s).',tabOff:(a,n)=>a+' : '+n+' case(s) décochée(s).',imp:(a,n)=>a+' : '+n+' élément(s) reconnu(s). Les parties non gérées par cette page (scripts, services, tâches) sont ignorées.',dlC:'Téléchargement impossible ici : le XML a été copié dans le presse-papiers.',dlF:'Téléchargement impossible sur cet appareil.',
+recT:(a,n)=>'Recommandé Winhance · '+a+' : '+n+' choix appliqués.',winT:(a,n)=>'Défaut Windows · '+a+' : '+n+" réglages remis aux valeurs d'origine.",winA:(a,n)=>a+' : '+n+' case(s) décochée(s).',recAll:n=>'Recommandé Winhance appliqué à tous les onglets ('+n+' choix).',cleared:(a,n)=>a+' : '+n+' choix retirés.',allC:'Tous les choix ont été effacés.',selAll:'Tout sélectionner',selNone:'Tout désélectionner',allS:'Tout',noneS:'Aucun',inv:'Inverser la sélection',invT:(a,n)=>a+' : sélection inversée ('+n+' éléments).',tabOn:(a,n)=>a+' : '+n+' case(s) cochée(s).',tabOff:(a,n)=>a+' : '+n+' case(s) décochée(s).',imp0:(a,n)=>a+' : '+n+' paramètre'+(n>1?'s':'')+' importé'+(n>1?'s':'')+'.',imp:(a,n,u)=>a+' : '+n+' paramètre'+(n>1?'s':'')+' importé'+(n>1?'s':'')+'. '+u+' autre'+(u>1?'s':'')+' élément'+(u>1?'s':'')+' non affiché'+(u>1?'s':'')+' ici, '+(u>1?'conservés tels quels':'conservé tel quel')+' dans le XML téléchargé.',bad:"Échec lors de l'importation de ce fichier. Fichier invalide.",xFix:"Fichier XML mal formé : mise en forme réparée.",xPart:"Fichier XML mal formé et non réparable : seuls les réglages Winhance reconnus ont été repris.",jx:n=>n+' élément'+(n>1?'s':'')+' propre'+(n>1?'s':'')+' à Winhance non repris ici.',impJ:(a,n,u)=>a+' : '+n+' paramètre'+(n>1?'s':'')+' importé'+(n>1?'s':'')+'. '+u+' élément'+(u>1?'s':'')+' propre'+(u>1?'s':'')+' à Winhance non repris ici.',keepB:n=>'Éléments importés conservés : '+n,keepC:'Retirer les éléments conservés ?',keepD:'Éléments conservés retirés.',dlC:'Téléchargement impossible ici : le XML a été copié dans le presse-papiers.',dlF:'Téléchargement impossible sur cet appareil.',
 keep:'Conserver',winAA:(a,n)=>a+' : '+n+' modification(s) annulée(s), tout est de nouveau coché.'},
 en:{title:'Winhance Portable',ph:n=>'Search '+n+' options',mRec:'Winhance recommended',mWin:'Windows default',allT:'All tabs',winAll:n=>'Windows default applied to all tabs ('+n+' choices).',load:'📂 Load a file',loadS:'.winhance or .XML',clear:'Reset this tab',clearC:'Reset this tab?',reset:'Reset everything',resetC:'Erase everything?',valid:'Confirm',cancel:'Cancel',readT:'Help',
-readH:"<li><b>Nothing is run here.</b> This page builds an XML file. Actions take place the first time Windows starts, when you use it as autounattend.xml.</li><li><b>Settings</b>: only the settings you change are added to the file; a setting left as is is not included. The switch picks “enabled” or “disabled”, and a list applies the chosen option.</li><li><b>Windows apps</b>: checked = kept, unchecked = removed. <b>External software</b>: checked = installed (winget), unchecked = nothing is installed.</li><li><b>Winhance recommended</b> (bottom bar) = Winhance's choices for the current tab. <b>Windows default</b> = Windows' original values for the current tab. The two “all tabs” buttons in the menu above do the same for every tab.</li><li>A setting with no known original value (cleanup actions, for example) is not changed by “Windows default”.</li><li><b>Good to know</b>: this file does not handle disks or account names and passwords. User settings (HKCU) apply to the first account that signs in. winget apps, the Winhance shortcut and the update check require a network connection. Always test in a virtual machine before using a real machine.</li>",
+readH:"<li><b>Nothing is run here.</b> This page builds an XML file. Actions take place the first time Windows starts, when you use it as autounattend.xml.</li><li><b>Settings</b>: only the settings you change are added to the file; a setting left as is is not included. The switch picks “enabled” or “disabled”, and a list applies the chosen option.</li><li><b>Windows apps</b>: checked = kept, unchecked = removed. <b>External software</b>: checked = installed (winget), unchecked = nothing is installed.</li><li><b>Winhance recommended</b> (bottom bar) = Winhance's choices for the current tab. <b>Windows default</b> = Windows' original values for the current tab. The two “all tabs” buttons in the menu above do the same for every tab.</li><li>A setting with no known original value (cleanup actions, for example) is not changed by “Windows default”.</li><li><b>Unsupported items</b>: on import, commands and scripts this page cannot display are kept as-is and included again in the downloaded XML. The “Kept imported items” button in the menu, or “Reset everything”, removes them.</li><li><b>Good to know</b>: this file does not handle disks or account names and passwords. User settings (HKCU) apply to the first account that signs in. winget apps, the Winhance shortcut and the update check require a network connection. Always test in a virtual machine before using a real machine.</li>",
 dl:'Download XML',menu:'Menu',rec:'Winhance recommended',win:'Windows default',unc:'Windows default',curT:'current tab',create:'Create',install:'Install',apply:'Apply',ac:'Plugged in',dc:'On battery',none:'No results.',general:'General',onL:'On',offL:'Off',
-recT:(a,n)=>'Winhance recommended · '+a+': '+n+' choices applied.',winT:(a,n)=>'Windows default · '+a+': '+n+' settings restored to their original values.',winA:(a,n)=>a+': '+n+' box(es) unchecked.',recAll:n=>'Winhance recommended applied to all tabs ('+n+' choices).',cleared:(a,n)=>a+': '+n+' choices removed.',allC:'All choices have been cleared.',selAll:'Select all',selNone:'Deselect all',allS:'All',noneS:'None',inv:'Invert selection',invT:(a,n)=>a+': selection inverted ('+n+' items).',tabOn:(a,n)=>a+': '+n+' box(es) checked.',tabOff:(a,n)=>a+': '+n+' box(es) unchecked.',imp:(a,n)=>a+': '+n+' item(s) recognized. Parts not handled by this page (scripts, services, tasks) are ignored.',dlC:'Download not possible here: the XML was copied to the clipboard.',dlF:'Download not possible on this device.',
+recT:(a,n)=>'Winhance recommended · '+a+': '+n+' choices applied.',winT:(a,n)=>'Windows default · '+a+': '+n+' settings restored to their original values.',winA:(a,n)=>a+': '+n+' box(es) unchecked.',recAll:n=>'Winhance recommended applied to all tabs ('+n+' choices).',cleared:(a,n)=>a+': '+n+' choices removed.',allC:'All choices have been cleared.',selAll:'Select all',selNone:'Deselect all',allS:'All',noneS:'None',inv:'Invert selection',invT:(a,n)=>a+': selection inverted ('+n+' items).',tabOn:(a,n)=>a+': '+n+' box(es) checked.',tabOff:(a,n)=>a+': '+n+' box(es) unchecked.',imp0:(a,n)=>a+': '+n+' setting'+(n>1?'s':'')+' imported.',imp:(a,n,u)=>a+': '+n+' setting'+(n>1?'s':'')+' imported. '+u+' other item'+(u>1?'s':'')+' not shown here, kept as-is in the downloaded XML.',bad:"Failed to import this file. Invalid file.",xFix:"Malformed XML file: formatting repaired.",xPart:"Malformed XML file that could not be repaired: only recognized Winhance settings were imported.",jx:n=>n+' Winhance-specific item'+(n>1?'s':'')+' not carried over.',impJ:(a,n,u)=>a+': '+n+' setting'+(n>1?'s':'')+' imported. '+u+' Winhance-specific item'+(u>1?'s':'')+' not carried over.',keepB:n=>'Kept imported items: '+n,keepC:'Remove kept items?',keepD:'Kept items removed.',dlC:'Download not possible here: the XML was copied to the clipboard.',dlF:'Download not possible on this device.',
 keep:'Keep',winAA:(a,n)=>a+': '+n+' change(s) reverted, everything is checked again.'}};
 const t=(k,...a)=>{const v=T[lang][k]!==undefined?T[lang][k]:T.fr[k];return typeof v==='function'?v(...a):v};
 function applyLang(){document.documentElement.lang=lang;document.title=t('title');document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-h]').forEach(e=>e.innerHTML=t(e.dataset.h));{const ph=t('ph',D.s.length+D.a.length+D.e.length);$('q').placeholder=ph;$('q').setAttribute('aria-label',ph)}$('sMenu').setAttribute('aria-label',t('menu'));[['bAll','selAll'],['bNone','selNone'],['bInv','inv']].forEach(x=>{$(x[0]).setAttribute('aria-label',t(x[1]));$(x[0]).title=t(x[1])});$('mReset').textContent=t('reset')}
@@ -182,6 +184,11 @@ const eId={};D.e.forEach(x=>eId[x.id]=x);
 let st={},tab='Apps',q='';
 const $=id=>document.getElementById(id);
 try{st=JSON.parse(localStorage.getItem('ub3')||'{}')}catch(e){}
+const emptyEx=()=>({cmds:[],sp:[],ps:[],files:{},ap:[],caps:[],feats:[],w:[],pe:[],op:[]});
+let ex=emptyEx();
+try{const v=JSON.parse(localStorage.getItem('ub-x')||'null');if(v&&typeof v==='object')ex=Object.assign(emptyEx(),v)}catch(e){}
+const saveX=()=>{try{localStorage.setItem('ub-x',JSON.stringify(ex))}catch(e){}};
+const kc=()=>ex.cmds.length+ex.sp.length+ex.ps.length+ex.ap.length+ex.caps.length+ex.feats.length+ex.w.length+ex.pe.length+ex.op.length+Object.keys(ex.files).length;
 try{const nv=JSON.parse(localStorage.getItem('ub-nav')||'{}');if(nv.last&&typeof nv.last==='object')GRP.forEach(g=>{if(g.tabs.includes(nv.last[g.id]))lastTab[g.id]=nv.last[g.id]});if(GRP.some(g=>g.tabs.includes(nv.tab)))tab=nv.tab}catch(e){}
 lastTab[grpOf(tab).id]=tab;
 const dv=x=>D.w[x.id];
@@ -193,6 +200,10 @@ const HELP="function Set-BinBit($p,$n,$i,$m,$on){$v=(Get-ItemProperty -Path $p -
 const ONENOTE="Get-Process -Name OneNote,ONENOTE,ONENOTEM -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue\nforeach($b in 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall','HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall'){Get-ChildItem $b -ErrorAction SilentlyContinue | Where-Object PSChildName -like 'OneNote*' | ForEach-Object{$u=(Get-ItemProperty $_.PSPath).UninstallString;if(-not $u){return};$s=if($u -like '*OfficeClickToRun.exe*'){'DisplayLevel=False'}else{'/silent'};if($u -match '^\"([^\"]+)\"(.*)$'){Start-Process -FilePath $matches[1] -ArgumentList ($matches[2].Trim()+' '+$s) -NoNewWindow -Wait -ErrorAction SilentlyContinue}else{Start-Process -FilePath $u -ArgumentList $s -NoNewWindow -Wait -ErrorAction SilentlyContinue}}}\n";
 const SD='C:\\ProgramData\\Winhance\\Unattend\\Scripts\\';
 const PSX='powershell.exe -NoProfile -ExecutionPolicy Bypass ';
+const APX=ap=>'powershell -NoProfile -ExecutionPolicy Bypass -Command "'+(ap.includes('MSTeams')?"Get-Process | Where-Object { $_.Name -like '*teams*' } | Stop-Process -Force -ErrorAction SilentlyContinue; ":'')+'foreach($n in '+ap.map(a=>"'"+a+"'").join(',')+'){Get-AppxPackage -AllUsers -Name $n | Remove-AppxPackage -AllUsers; Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq $n | Remove-AppxProvisionedPackage -Online}"';
+const CAP=c=>PSX+'-Command "Get-WindowsCapability -Online | Where-Object Name -like \''+c+'*\' | Remove-WindowsCapability -Online"';
+const FEA=f=>PSX+'-Command "foreach($f in '+f.map(x=>"'"+x+"'").join(',')+'){Disable-WindowsOptionalFeature -Online -FeatureName $f -NoRestart -ErrorAction SilentlyContinue}"';
+const WGT=w=>'winget install --id '+w+' -e --silent --accept-package-agreements --accept-source-agreements';
 function cmdsFor(){
  const out=[],ps=[],files={};let pw=0,hs=0;
  const sp=[],f0=[],fz=[],ob=[];
@@ -209,37 +220,48 @@ function cmdsFor(){
   else if(x.o[v])add(x.o[v].c)});
  if(pw)out.push('powercfg /setactive SCHEME_CURRENT');
  const ap=[],caps=[],feats=[];let on=0;
+ const addU=(a,b)=>b.forEach(z=>{if(!a.includes(z))a.push(z)});
  D.a.forEach(a=>{if(!st['a:'+a.id])return;
   if(a.sc)files[a.sc+'.ps1']=D.sc[a.sc];
   else if(a.cap)caps.push(a.cap);else if(a.feat)feats.push(a.feat);
   else if(a.k){ap.push(...a.k);if(a.k.some(k=>/OneNote/i.test(k)))on=1}});
- if(ap.length)out.push('powershell -NoProfile -ExecutionPolicy Bypass -Command "'+(ap.includes('MSTeams')?"Get-Process | Where-Object { $_.Name -like '*teams*' } | Stop-Process -Force -ErrorAction SilentlyContinue; ":'')+'foreach($n in '+ap.map(a=>"'"+a+"'").join(',')+'){Get-AppxPackage -AllUsers -Name $n | Remove-AppxPackage -AllUsers; Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq $n | Remove-AppxProvisionedPackage -Online}"');
- caps.forEach(c=>out.push(PSX+'-Command "Get-WindowsCapability -Online | Where-Object Name -like \''+c+'*\' | Remove-WindowsCapability -Online"'));
- if(feats.length)out.push(PSX+'-Command "foreach($f in '+feats.map(f=>"'"+f+"'").join(',')+'){Disable-WindowsOptionalFeature -Online -FeatureName $f -NoRestart -ErrorAction SilentlyContinue}"');
+ addU(ap,ex.ap);addU(caps,ex.caps);addU(feats,ex.feats);
+ if(ap.length)out.push(APX(ap));
+ caps.forEach(c=>out.push(CAP(c)));
+ if(feats.length)out.push(FEA(feats));
  if(on)files['OneNoteRemoval.ps1']=ONENOTE;
  if(ap.some(k=>['Microsoft.GamingApp','Microsoft.XboxGamingOverlay','Microsoft.XboxGameOverlay'].includes(k)))files['XboxFix.ps1']='function Write-Log { param([string]$Message,[string]$Level) }\n$packages = @('+ap.map(a=>"'"+a+"'").join(',')+')\n'+D.sc.xbox;
- D.e.forEach(a=>{if(st['e:'+a.id])out.push(a.cmd||'winget install --id '+a.w+' -e --silent --accept-package-agreements --accept-source-agreements')});
+ D.e.forEach(a=>{if(st['e:'+a.id])out.push(a.cmd||WGT(a.w))});
+ ex.w.forEach(w=>out.push(WGT(w)));
+ ps.push(...ex.ps);
  if(ps.length)files['ExtraTweaks.ps1']=HELP+ps.map(p=>'& {\n'+p+'\n}').join('\n')+'\n';
- const fk=Object.keys(files);
- if(fk.length){out.unshift('powershell.exe -NoProfile -WindowStyle Hidden -Command "$xml = [xml]::new(); $xml.Load(\'C:\\Windows\\Panther\\unattend.xml\'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"');
+ const fk=Object.keys(files),xf=Object.keys(ex.files);
+ if(fk.length||xf.length){out.unshift('powershell.exe -NoProfile -WindowStyle Hidden -Command "$xml = [xml]::new(); $xml.Load(\'C:\\Windows\\Panther\\unattend.xml\'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"');
   fk.forEach(k=>out.push(PSX+'-File "'+SD+k+'"'))}
+ out.push(...ex.cmds);if(ex.cmds.some(c=>/powercfg \/set(?:ac|dc)valueindex/i.test(c)))out.push('powercfg /setactive SCHEME_CURRENT');
  out.unshift(...f0);out.push(...fz);
+ ex.sp.forEach(z=>{if(!sp.includes(z))sp.push(z)});
  return [out,files,sp,ob];
 }
 function xml(){
  const [c,files,sp,ob]=cmdsFor();
- let o='<?xml version="1.0" encoding="utf-8"?>\n<unattend xmlns="urn:schemas-microsoft-com:unattend">\n  <settings pass="windowsPE">\n'+['amd64','arm64'].map(a=>'    <component name="Microsoft-Windows-Setup" processorArchitecture="'+a+'" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">\n      <UserData>\n        <AcceptEula>true</AcceptEula>\n      </UserData>\n    </component>\n').join('')+'  </settings>\n';
+ const WCM=' xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"';
+ const runXml=(l,i)=>i+'<RunSynchronous>\n'+l.map((x,k)=>i+'  <RunSynchronousCommand wcm:action="add">\n'+i+'    <Order>'+(k+1)+'</Order>\n'+i+'    <Path>'+esc(x)+'</Path>\n'+i+'  </RunSynchronousCommand>\n').join('')+i+'</RunSynchronous>\n';
+ const opx=ps=>{const l=ex.op.filter(z=>z.p===ps).map(z=>z.c);return l.length?'  <settings pass="'+ps+'">\n'+['amd64','arm64'].map(a=>'    <component name="Microsoft-Windows-Deployment" processorArchitecture="'+a+'" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"'+WCM+'>\n'+runXml(l,'      ')+'    </component>\n').join('')+'  </settings>\n':''};
+ let o='<?xml version="1.0" encoding="utf-8"?>\n<unattend xmlns="urn:schemas-microsoft-com:unattend">\n  <settings pass="windowsPE">\n'+['amd64','arm64'].map(a=>'    <component name="Microsoft-Windows-Setup" processorArchitecture="'+a+'" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"'+(ex.pe.length?WCM:'')+'>\n      <UserData>\n        <AcceptEula>true</AcceptEula>\n      </UserData>\n'+(ex.pe.length?runXml(ex.pe,'      '):'')+'    </component>\n').join('')+'  </settings>\n';
+ o+=opx('generalize');
  if(sp.length){o+='  <settings pass="specialize">\n'+['amd64','arm64'].map(a=>{let s='    <component name="Microsoft-Windows-Deployment" processorArchitecture="'+a+'" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">\n      <RunSynchronous>\n';sp.forEach((x,k)=>{s+='        <RunSynchronousCommand wcm:action="add">\n          <Order>'+(k+1)+'</Order>\n          <Path>'+esc(x)+'</Path>\n        </RunSynchronousCommand>\n'});return s+'      </RunSynchronous>\n    </component>\n'}).join('')+'  </settings>\n'}
+ o+=opx('auditSystem')+opx('auditUser');
  o+='  <settings pass="oobeSystem">\n'+['amd64','arm64'].map(a=>{let s='    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="'+a+'" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">\n      <OOBE>\n        <HideEULAPage>true</HideEULAPage>\n        <ProtectYourPC>3</ProtectYourPC>\n'+[...new Set(ob)].map(x=>'        '+x+'\n').join('')+'      </OOBE>\n';if(c.length){s+='      <FirstLogonCommands>\n';c.forEach((x,k)=>{s+='        <SynchronousCommand wcm:action="add">\n          <Order>'+(k+1)+'</Order>\n          <CommandLine>'+esc(x)+'</CommandLine>\n        </SynchronousCommand>\n'});s+='      </FirstLogonCommands>\n'}return s+'    </component>\n'}).join('')+'  </settings>\n';
- const fk=Object.keys(files);
- if(fk.length){o+='  <Extensions xmlns="urn:winhance:unattend">\n    <ExtractScript>'+D.sc.extract+'</ExtractScript>\n';fk.forEach(k=>{o+='    <File path="'+SD+k+'">'+esc(files[k])+'</File>\n'});o+='  </Extensions>\n'}
+ const fk=Object.keys(files),xf=Object.keys(ex.files);
+ if(fk.length||xf.length){o+='  <Extensions xmlns="urn:winhance:unattend">\n    <ExtractScript>'+D.sc.extract+'</ExtractScript>\n';fk.forEach(k=>{o+='    <File path="'+SD+k+'">'+esc(files[k])+'</File>\n'});xf.forEach(p=>{o+='    <File path="'+esc(p)+'">'+esc(ex.files[p])+'</File>\n'});o+='  </Extensions>\n'}
  return [o+'</unattend>\n',c.length];
 }
 
 const isApp=t=>t==='Apps'||t==='Ext';
 let tt=0;
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),5500)}
-function build(){const k=Object.keys(st).length;$('cnt').textContent=k||''}
+function build(){const k=Object.keys(st).length;$('cnt').textContent=k||'';$('mKeep').hidden=!kc()||!$('kConf').hidden;$('mKeep').textContent=t('keepB',kc())}
 function cnt(f){return Object.keys(st).filter(k=>k.startsWith('a:')?f==='Apps':k.startsWith('e:')?f==='Ext':(byId[k]||{}).f===f).length}
 let chipTab=null;
 function chips(){const g0=grpOf(tab);
@@ -297,20 +319,41 @@ const tup=c=>{const k0=c.match(/^schtasks \/Change \/TN "([^"]+)" \/(ENABLE|DISA
  if(m)return np(m[1])+'|'+(m[2]||'(default)').toLowerCase()+'|'+sv(m[3]!==undefined?m[3]:m[4]);
  m=c.match(/^reg delete "([^"]+)" (?:\/v (\S+)|\/ve) \/f$/);
  return m?np(m[1])+'|'+(m[2]||'(default)').toLowerCase()+'|\u0001':null};
+function repairXml(z){
+ z=z.replace(/^\uFEFF/,'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+ const i=z.search(/<\?xml|<unattend/i);if(i>0)z=z.slice(i);
+ z=z.replace(/&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g,'&amp;');
+ const re=/<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?\]\]>|<\?[\s\S]*?\?>|<\/([A-Za-z_][\w:.-]*)\s*>|<([A-Za-z_][\w:.-]*)((?:[^>"']|"[^"]*"|'[^']*')*?)(\/?)>/g;
+ const stk=[];let o='',last=0,m;
+ while(m=re.exec(z)){
+  o+=z.slice(last,m.index).replace(/</g,'&lt;');last=re.lastIndex;
+  if(m[1]!==undefined){const k=stk.lastIndexOf(m[1]);if(k<0)continue;while(stk.length-1>k)o+='</'+stk.pop()+'>';stk.pop();o+=m[0]}
+  else{o+=m[0];if(m[2]!==undefined&&!m[4])stk.push(m[2])}
+ }
+ o+=z.slice(last).replace(/</g,'&lt;');
+ while(stk.length)o+='</'+stk.pop()+'>';
+ return o;
+}
 function importText(txt,name){
- let n=0;
+ let n=0,u=0,ju=0,note='';
  let j=null;try{j=JSON.parse(txt)}catch(e){}
  if(j&&(j.Optimize||j.Customize||j.WindowsApps)){
   ['Optimize','Customize'].forEach(s=>Object.values((j[s]||{}).Features||{}).forEach(f=>(f.Items||[]).forEach(it=>{
-   const x=byId[it.Id];if(!x)return;
+   const x=byId[it.Id];if(!x){if(it.IsSelected!=null||it.SelectedIndex!=null||it.PowerSettings)ju++;return}
    if(x.t==='t'&&it.IsSelected!=null){st[x.id]=it.IsSelected?'on':'off';n++}
    else if(x.t==='s'&&it.SelectedIndex!=null&&x.o[it.SelectedIndex]){st[x.id]=it.SelectedIndex;n++}
    else if(x.id==='power-plan-selection'){const gi=x.o.findIndex(o=>o.guid&&o.guid===String(it.PowerPlanGuid||'').toLowerCase());if(gi>=0){st[x.id]=gi;n++}}
    else if(x.t==='p'&&it.PowerSettings){const p=it.PowerSettings,k=x.o?'Index':'Value';st[x.id]={a:p['AC'+k]??null,d:p['DC'+k]??null};n++}})));
-  ((j.WindowsApps||{}).Items||[]).forEach(it=>{if(it.IsSelected&&aId[it.Id]){st['a:'+it.Id]=1;n++}});
-  ((j.ExternalApps||{}).Items||[]).forEach(it=>{if(it.IsSelected&&eId[it.Id]){st['e:'+it.Id]=1;n++}});
+  const okP=/^[A-Za-z0-9._*+-]+$/,addU=(a,z)=>{if(!a.includes(z))a.push(z)};
+  ((j.WindowsApps||{}).Items||[]).forEach(it=>{if(it.IsSelected){if(aId[it.Id]){st['a:'+it.Id]=1;n++}else{const pk=[].concat(it.AppxPackageName||[]).map(z=>String(z).trim()).filter(z=>okP.test(z));if(pk.length){pk.forEach(z=>addU(ex.ap,z));u++}else ju++}}});
+  ((j.ExternalApps||{}).Items||[]).forEach(it=>{if(it.IsSelected){if(eId[it.Id]){st['e:'+it.Id]=1;n++}else{const w=String(it.WinGetPackageId||'').trim(),k=D.e.find(a=>a.w===w);if(k){st['e:'+k.id]=1;n++}else if(okP.test(w)){addU(ex.w,w);u++}else ju++}}});
+  if(u)saveX();
  }else{
-  txt=dec(txt);const S=new Set();let m;
+  const xl=/<\s*(unattend|settings|component|CommandLine|File)\b/i.test(txt);
+  const parseX=z=>{try{const d=new DOMParser().parseFromString(z,'application/xml');return d.getElementsByTagName('parsererror').length?null:d}catch(e){return null}};
+  let raw=txt,dm=xl?parseX(raw):null,fixed=false;
+  if(xl&&!dm){const rp=repairXml(raw);dm=parseX(rp);if(dm){raw=rp;fixed=true}}
+  txt=dec(raw);const S=new Set();let m;
   const r1=/Set-RegistryValue\s+-Path\s+'([^']+)'\s+-Name\s+'([^']*)'\s+-Type\s+'\w+'\s+-Value\s+('(?:[^']|'')*'|\S+)/g;
   while(m=r1.exec(txt))S.add(np(m[1])+'|'+m[2].toLowerCase()+'|'+sv(m[3]));
   const r2=/Remove-RegistryValue\s+-Path\s+'([^']+)'\s+-Name\s+'([^']*)'/g;
@@ -319,24 +362,81 @@ function importText(txt,name){
   const P={};const rp=/powercfg \/set(ac|dc)valueindex SCHEME_CURRENT (\S+) (\S+) (-?\d+)/gi;
   while(m=rp.exec(txt)){const k=(m[2]+'|'+m[3]).toLowerCase();(P[k]=P[k]||{})[m[1].toLowerCase()]=+m[4]}
   const has=c=>/^(PS|SP|FL0|FLZ|OB):/.test(c)?txt.includes(c.replace(/^\w+:/,'')):c.startsWith('powercfg ')?txt.includes(c):(k=>k?S.has(k):txt.includes(c))(tup(c));
+  const covT=new Set(),covL=new Set(),covP=new Set();
+  const cov=l=>(l||[]).forEach(c=>{const k=tup(c);if(k)covT.add(k);const b=c.replace(/^(?:PS|SP|FL0|FLZ|OB):/,'');covL.add(c.trim());covL.add(b.trim());b.split(/\r?\n/).forEach(z=>{z=z.trim();if(z)covL.add(z)})});
   D.s.forEach(x=>{
    if(x.t==='p'){const q=P[(x.c[0].g+'|'+x.c[0].s).toLowerCase()];
     if(q){const ix=v=>v==null?null:x.o?x.o.findIndex(o=>o.v===v):v;const a=ix(q.ac),d=ix(q.dc);
-     if(a!=null&&a>=0||d!=null&&d>=0){st[x.id]={a:a<0?null:a,d:d<0?null:d};n++}}}
-   else if(x.t==='c'){if(x.on.every(has)){st[x.id]=1;n++}}
+     if(a!=null&&a>=0||d!=null&&d>=0){st[x.id]={a:a<0?null:a,d:d<0?null:d};n++;x.c.forEach(c=>covP.add((c.g+'|'+c.s).toLowerCase()))}}}
+   else if(x.t==='c'){if(x.on.every(has)){st[x.id]=1;n++;cov(x.on)}}
    else if(x.t==='t'){
-    if(x.on.length&&x.on.every(has)){st[x.id]='on';n++}
-    else if(x.off.length&&x.off.every(has)){st[x.id]='off';n++}}
-   else if(x.t==='s')x.o.forEach((o,i)=>{if(o.c.length&&o.c.every(has)){st[x.id]=i;n++}})});
+    if(x.on.length&&x.on.every(has)){st[x.id]='on';n++;cov(x.on)}
+    else if(x.off.length&&x.off.every(has)){st[x.id]='off';n++;cov(x.off)}}
+   else if(x.t==='s')x.o.forEach((o,i)=>{if(o.c.length&&o.c.every(has)){st[x.id]=i;n++;cov(o.c)}})});
   D.a.forEach(a=>{const q=p=>txt.includes("'"+p+"'")||txt.includes('"'+p+'"');const hit=a.sc?txt.includes(a.sc+'.ps1'):a.cap?(q(a.cap)||txt.includes("'"+a.cap+"*'")):a.feat?q(a.feat):(a.k.length&&a.k.every(q));if(hit){st['a:'+a.id]=1;n++}});
-  D.e.forEach(a=>{const hit=a.w?(txt.includes('--id '+a.w+' ')||txt.includes("'"+a.w+"'")||txt.includes('"'+a.w+'"')):(a.m?txt.includes(a.m):(txt.includes('Install Winhance.lnk')||txt.includes(a.cmd.slice(-50))));if(hit){st['e:'+a.id]=1;n++}});
+  D.e.forEach(a=>{const hit=a.w?(txt.includes('--id '+a.w+' ')||txt.includes("'"+a.w+"'")||txt.includes('"'+a.w+'"')):(a.m?txt.includes(a.m):(txt.includes('Install Winhance.lnk')||txt.includes(a.cmd.slice(-50))));if(hit){st['e:'+a.id]=1;n++;if(a.cmd)covL.add(a.cmd.trim())}});
+  if(!xl&&!n){toast(t('bad'));return}
+  Object.values(D.sc||{}).forEach(z=>{z=String(z).trim();covL.add(z);covL.add(dec(z))});
+  const nx=emptyEx(),known=l=>covL.has(l)||covT.has(tup(l)||''),pu=(a,z)=>{if(!a.includes(z))a.push(z)};
+  const base=p=>p.replace(/^.*[\\/]/,'').toLowerCase();
+  const gen=new Set(['extratweaks.ps1','onenoteremoval.ps1','xboxfix.ps1'].concat(D.a.filter(a=>a.sc).map(a=>a.sc.toLowerCase()+'.ps1')));
+  const kn=new Set([].concat(...D.a.map(a=>a.k||[]))),cn=new Set(D.a.map(a=>a.cap).filter(Boolean)),fn=new Set(D.a.map(a=>a.feat).filter(Boolean)),wn=new Set(D.e.flatMap(a=>[a.w,a.m]).filter(Boolean));
+  const lst=z=>z.split(',').map(y=>y.trim().replace(/^'|'$/g,'')),unk=(l,set)=>l.filter(z=>z&&!set.has(z));
+  const covered=c=>{
+   if(!/reg (?:add|delete) "|schtasks |powercfg /i.test(c))return false;
+   return c.split(/(?=reg (?:add|delete) ")|(?=schtasks )|(?=powercfg )/).map(z=>z.trim()).filter(Boolean).every(z=>{const k=tup(z);if(k)return covT.has(k);
+    const q=/^powercfg \/set(?:ac|dc)valueindex SCHEME_CURRENT (\S+) (\S+) -?\d+$/i.exec(z);if(q)return covP.has((q[1]+'|'+q[2]).toLowerCase());
+    return /^powercfg \/setactive SCHEME_CURRENT$/i.test(z)})};
+  const keepScript=body=>{
+   let c=0,fnn=false,d=0,op=false,sig=false;const keep=[];
+   body.split(/\r?\n/).forEach(l=>{const t=l.trim();let r=null,q;
+    if(q=/^Set-RegistryValue\s+-Path\s+'([^']+)'\s+-Name\s+'([^']*)'\s+-Type\s+'\w+'\s+-Value\s+('(?:[^']|'')*'|\S+)/.exec(t))r=np(q[1])+'|'+q[2].toLowerCase()+'|'+sv(q[3]);
+    else if(q=/^Remove-RegistryValue\s+-Path\s+'([^']+)'\s+-Name\s+'([^']*)'/.exec(t))r=np(q[1])+'|'+q[2].toLowerCase()+'|\u0001';
+    else r=tup(t);
+    if(r&&covT.has(r)){c++;return}
+    keep.push(l);
+    const o=(l.match(/\{/g)||[]).length,z=(l.match(/\}/g)||[]).length;
+    if(fnn){if(o)op=true;d+=o-z;if(op&&d<=0)fnn=false;return}
+    if(/^function\s+[\w-]+/i.test(t)){fnn=true;op=false;d=o-z;if(o)op=true;if(op&&d<=0)fnn=false;return}
+    if(t&&!/^#/.test(t))sig=true});
+   return c&&!sig?null:keep.join('\n')};
+  const allF=new Set(),keptF=new Set();
+  const fre=/<File path="([^"]+)">([\s\S]*?)<\/File>/g;
+  while(m=fre.exec(txt)){const p=m[1],b=base(p),body=m[2];allF.add(b);
+   if(b==='extratweaks.ps1'){body.split(/(?:^|\n)& \{\n/).slice(1).forEach(z=>{z=z.replace(/\n\}\s*$/,'');if(z.trim()&&!covL.has(z.trim()))pu(nx.ps,z)});continue}
+   if(gen.has(b))continue;
+   const r=keepScript(body);if(r!==null){nx.files[p]=r;keptF.add(b)}}
+  const cmdKeep=(c,isSp)=>{
+   if(!c||/ExtractScript/.test(c))return;
+   if(!isSp){
+    const f=/-File\s+"([^"]+)"/.exec(c);
+    if(f){const b=base(f[1]);if(gen.has(b)||(allF.has(b)&&!keptF.has(b)))return;pu(nx.cmds,c);return}
+    let q;
+    if((q=/foreach\(\$n in ([^)]*)\)\{/.exec(c))&&c===APX(lst(q[1]))){unk(lst(q[1]),kn).forEach(z=>pu(nx.ap,z));return}
+    if((q=/foreach\(\$f in ([^)]*)\)\{/.exec(c))&&c===FEA(lst(q[1]))){unk(lst(q[1]),fn).forEach(z=>pu(nx.feats,z));return}
+    if((q=/Name -like '([^']+)\*'/.exec(c))&&c===CAP(q[1])){unk([q[1]],cn).forEach(z=>pu(nx.caps,z));return}
+    if((q=/^winget install --id (\S+) /.exec(c))&&c===WGT(q[1])){unk([q[1]],wn).forEach(z=>pu(nx.w,z));return}
+   }
+   if(known(c)||covered(c))return;
+   pu(isSp?nx.sp:nx.cmds,c)};
+  const cre=/<CommandLine>([\s\S]*?)<\/CommandLine>/g;while(m=cre.exec(txt))cmdKeep(m[1].trim(),false);
+  if(dm){
+   const runOf=ps=>Array.from(dm.querySelectorAll('settings')).filter(z=>z.getAttribute('pass')===ps).flatMap(z=>Array.from(z.querySelectorAll('RunSynchronousCommand,RunAsynchronousCommand')).map(c=>{const p=Array.from(c.children).find(y=>y.localName==='Path');return p?p.textContent.trim():''}).filter(Boolean));
+   runOf('specialize').forEach(c=>cmdKeep(c,true));
+   runOf('windowsPE').forEach(c=>pu(nx.pe,c));
+   ['generalize','auditSystem','auditUser'].forEach(ps=>runOf(ps).forEach(c=>{if(!nx.op.some(z=>z.p===ps&&z.c===c))nx.op.push({p:ps,c:c})}));
+  }
+  note=xl?(dm?(fixed?'xFix':''):'xPart'):'';
+  if(dm){u=nx.cmds.length+nx.sp.length+nx.ps.length+nx.ap.length+nx.caps.length+nx.feats.length+nx.w.length+nx.pe.length+nx.op.length+Object.keys(nx.files).length;
+  ['cmds','sp','ps','ap','caps','feats','w','pe'].forEach(k=>nx[k].forEach(z=>pu(ex[k],z)));nx.op.forEach(z=>{if(!ex.op.some(y=>y.p===z.p&&y.c===z.c))ex.op.push(z)});Object.assign(ex.files,nx.files);saveX()}
+  
  }
  save();render();
- toast(t('imp',name,n));
+ build();toast((u?t('imp',name,n,u)+(ju?' '+t('jx',ju):''):ju?t('impJ',name,n,ju):t('imp0',name,n))+(note?' '+t(note):''));
 }
 
 const SH=['sMenu'];
-function closeSheets(){SH.forEach(s=>$(s).hidden=true);$('shade').hidden=true;resetConf(false);clearConf(false)}
+function closeSheets(){SH.forEach(s=>$(s).hidden=true);$('shade').hidden=true;resetConf(false);clearConf(false);keepConf(false)}
 function sheet(id){const was=!$(id).hidden;closeSheets();if(!was){$(id).hidden=false;$('shade').hidden=false}}
 $('bMenu').onclick=()=>sheet('sMenu');$('shade').onclick=closeSheets;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheets()});
 $('bRec').onclick=()=>{closeSheets();const n=recTab(tab);save();render();toast(t('recT',FL[tab],n))};
@@ -350,11 +450,15 @@ function clearConf(on){$('mClear').hidden=on;$('cConf').hidden=!on}
 $('mClear').onclick=()=>{resetConf(false);clearConf(true)};
 $('cNo').onclick=()=>clearConf(false);
 $('cYes').onclick=()=>{clearConf(false);const k=tabKeys(tab);let n=0;k.forEach(x=>{if(st[x]!==undefined){delete st[x];n++}});save();closeSheets();render();toast(t('cleared',FL[tab],n))};
+function keepConf(on){$('mKeep').hidden=on||!kc();$('kConf').hidden=!on}
+$('mKeep').onclick=()=>{clearConf(false);resetConf(false);keepConf(true)};
+$('kNo').onclick=()=>keepConf(false);
+$('kYes').onclick=()=>{ex=emptyEx();saveX();keepConf(false);build();toast(t('keepD'))};
 function resetConf(on){$('mReset').hidden=on;$('rConf').hidden=!on}
 $('mReset').onclick=()=>{clearConf(false);resetConf(true)};
 $('rNo').onclick=()=>resetConf(false);
-$('rYes').onclick=()=>{resetConf(false);st={};save();closeSheets();render();toast(t('allC'))};
-$('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{closeSheets();importText(String(r.result),f.name)};r.readAsText(f);e.target.value=''};
+$('rYes').onclick=()=>{resetConf(false);st={};ex=emptyEx();saveX();save();closeSheets();render();toast(t('allC'))};
+$('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{closeSheets();importText(String(r.result),f.name)};r.onerror=()=>toast(t('bad'));r.readAsText(f);e.target.value=''};
 $('chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.grp){const g=GRP.find(x=>x.id===b.dataset.grp);tab=lastTab[g.id]||g.tabs[0]}else{tab=b.dataset.tab}lastTab[grpOf(tab).id]=tab;q='';$('q').value='';render();window.scrollTo(0,0)};
 $('q').oninput=e=>{q=e.target.value.trim();render()};
 $('list').onchange=e=>{const el=e.target,d=el.dataset;
